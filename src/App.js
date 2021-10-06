@@ -13,21 +13,15 @@ import Selection from './Components/Selection';
 import SSS from './Components/SSS';
 import SSA from './Components/SSA';
 import SAA from './Components/SAA';
-import React, { useState } from "react";
+import { useState } from "react";
 
 function App() {
-    const [myForm, setMyForm] = useState({
-      hypotenuse: "",
-      opposite: "",
-      adjacent: "",
-      topAngle: "",
-      rightAngle: "",
-      leftAngle: "",
-      classification: ""
-    });
-    const onChangeHandler = e => {
-      setMyForm({ ...myForm, [e.target.name]: e.target.value })
-    }
+
+  const [myTriangle, setTriangle] = useState([]);
+  const setAttribute = myAtt => {
+    console.log(myAtt)
+    setTriangle(myAtt)
+  }
     return (
       <BrowserRouter>
         <Switch>
@@ -35,22 +29,22 @@ function App() {
             <Loading />
           </Route>
           <Route path="/error">
-            <Error />
+            <Error triangle = {myTriangle}/>
           </Route>
           <Route path="/report">
-            <Report myForm={myForm} />
+            <Report triangle = {myTriangle}/>
           </Route>
           <Route path="/selection">
             <Selection />
           </Route>
           <Route path="/SSS">
-            <SSS myForm={myForm} onChangeHandler={onChangeHandler} />
+            <SSS setAtt = {setAttribute}/>
           </Route>
           <Route path="/SSA">
-            <SSA myForm={myForm} onChangeHandler={onChangeHandler} />
+            <SSA setAtt = {setAttribute}/>
           </Route>
           <Route path="/SAA">
-            <SAA myForm={myForm} onChangeHandler={onChangeHandler} />
+            <SAA setAtt = {setAttribute}/>
           </Route>
         </Switch>
       </BrowserRouter>

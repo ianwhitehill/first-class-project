@@ -3,9 +3,9 @@ import React from "react";
 const Error = (props) => {
     return (
         <div  className="container">
-            <h1>Error</h1>
-            <p></p>
-            <input type="button" value="Acknowledge" className="btn btn-light buttonPad"/>
+            <h1>Error:</h1>
+            <h3>{props.triangle.errorMessage}</h3>
+			<div><a href="http://localhost:3000/selection" className="btn btn-light buttonPad">Acknowledge</a></div>
         </div>
     );
 } 
