@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import saaImage from '../Img/saa.jpg';
 
 const SAA = (props) => {
+    // Object properties 
     const [myAtt, setMyAtt] = useState({
         hypotenuse: 0,
         adjacent: 0,
@@ -13,23 +14,30 @@ const SAA = (props) => {
         classification: "",
         errorMessage: ""
     })
+    // Error flag
     const [error, setError] = useState({ foundError: false })
+    // Report flag
     const [redirecter, setRedirect] = useState({ redirect: false })
+    // Setting props
     const updateAtt = e => {
         setMyAtt({...myAtt, [e.target.name]: e.target.value});
     }
+    // Validation and error handeling 
     const createAttFunction = e => {
         e.preventDefault();
+        // Validation
         if(myAtt.hypotenuse <= 0 || myAtt.angleB <= 0 || myAtt.angleC <= 0){
             myAtt.errorMessage = "All inputs must be a positive number greater then 0";
             props.setAtt(myAtt);
             return setError({ foundError: true });
         }
+        // Error handling
         if(myAtt.angleB + myAtt.angleC <= 180){
             myAtt.errorMessage = "Angles must be less then 180 degrees";
             props.setAtt(myAtt);
             return setError({ foundError: true });
         }
+        // Aglo to find sides 
         myAtt.angleA = 180 - myAtt.angleB - myAtt.angleC;
 		var sinA = Math.sin(myAtt.angleA / 180 * Math.PI);
 		var sinB = Math.sin(myAtt.angleB / 180 * Math.PI);
@@ -37,12 +45,15 @@ const SAA = (props) => {
 		var ratio = myAtt.hypotenuse / sinB;
 		myAtt.opposite = ratio * sinA;
 		myAtt.adjacent = ratio * sinC;
+        // Classification
         if (myAtt.adjacent == myAtt.hypotenuse && myAtt.adjacent == myAtt.opposite) myAtt.classification = "Equilateral";
         else if(myAtt.adjacent == myAtt.hypotenuse) myAtt.classification = "Isosceles";
         else if(myAtt.hypotenuse == myAtt.opposite) myAtt.classification = "Isosceles";
         else if(myAtt.adjacent == myAtt.opposite) myAtt.classification = "Isosceles";
         else myAtt.classification = "Scalence";
+        // Set props
         props.setAtt(myAtt);
+        // Flip report flag 
         setRedirect({ redirect: true });
     }
     return (

@@ -9,7 +9,7 @@ const Loading = (props) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setRedirect({ redirect: true })
-        }, 5000);
+        }, 5000);// 5 second to redirect
         return () => clearTimeout(timer);
     }, [])
     return (

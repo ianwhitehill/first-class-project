@@ -1,5 +1,4 @@
 import React from "react";
-import { Switch, BrowserRouter, Link } from "react-router-dom";
 
 const Selection = (props) => {
     return (

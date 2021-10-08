@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import sssImage from '../Img/sss.jpg';
 
 const SSS = (props) => {
+    // Object properties 
     const [myAtt, setMyAtt] = useState({
         hypotenuse: 0,
         adjacent: 0,
@@ -10,24 +11,33 @@ const SSS = (props) => {
         classification: "",
         errorMessage: ""
     })
+    // Error Flag
     const [error, setError] = useState({ foundError: false })
+    // Report Flag
     const [redirecter, setRedirect] = useState({ redirect: false })
+    // Setting props 
     const updateAtt = e => {
         setMyAtt({...myAtt, [e.target.name]: e.target.value});
     }
+    // Validation and redirect 
     const createAttFunction = e => {
         e.preventDefault();
+        // Error checking 
         if(myAtt.hypotenuse <= 0 || myAtt.adjacent <= 0 || myAtt.opposite <= 0){
             myAtt.errorMessage = "All inputs must be a positive number greater then 0";
             props.setAtt(myAtt);
+            // Flipping Error flag
             return setError({ foundError: true });
         }
+        // Set classification 
         if (myAtt.adjacent == myAtt.hypotenuse && myAtt.adjacent == myAtt.opposite) myAtt.classification = "Equilateral";
         else if(myAtt.adjacent == myAtt.hypotenuse) myAtt.classification = "Isosceles";
         else if(myAtt.hypotenuse == myAtt.opposite) myAtt.classification = "Isosceles";
         else if(myAtt.adjacent == myAtt.opposite) myAtt.classification = "Isosceles";
         else myAtt.classification = "Scalence";
+        // Setting Props 
         props.setAtt(myAtt);
+        // Flip Report flag
         setRedirect({ redirect: true });
     }
     return (

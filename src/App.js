@@ -16,7 +16,7 @@ import SAA from './Components/SAA';
 import { useState } from "react";
 
 function App() {
-
+  // Setting base class
   const [myTriangle, setTriangle] = useState([]);
   const setAttribute = myAtt => {
     console.log(myAtt)
@@ -29,22 +29,22 @@ function App() {
             <Loading />
           </Route>
           <Route path="/error">
-            <Error triangle = {myTriangle}/>
+             <Error triangle = {myTriangle}/>{/* passing object */}
           </Route>
           <Route path="/report">
-            <Report triangle = {myTriangle}/>
+            <Report triangle = {myTriangle}/>{/* passing object */}
           </Route>
           <Route path="/selection">
             <Selection />
           </Route>
           <Route path="/SSS">
-            <SSS setAtt = {setAttribute}/>
+            <SSS setAtt = {setAttribute}/>{/* passing props */}
           </Route>
           <Route path="/SSA">
-            <SSA setAtt = {setAttribute}/>
+            <SSA setAtt = {setAttribute}/>{/* passing props */}
           </Route>
           <Route path="/SAA">
-            <SAA setAtt = {setAttribute}/>
+            <SAA setAtt = {setAttribute}/>{/* passing props */}
           </Route>
         </Switch>
       </BrowserRouter>
