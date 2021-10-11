@@ -8,7 +8,7 @@ const Report = (props) => {
             <h3>Length of side B of the triangle is {props.triangle.adjacent} millimetres</h3>
             <h3>Length of side C of the triangle is {props.triangle.opposite} millimetres</h3>
             <h2>Triangle Classification: {props.triangle.classification}</h2>
-            <div><a href="http://localhost:3000/selection" className="btn btn-light buttonPad">Finished</a><img src={sssImage} /></div>
+            <div><a href="http://localhost:3000/selection" className="btn btn-outline-success buttonPad">Finished</a><img src={sssImage} /></div>
         </div>
     );
 } 

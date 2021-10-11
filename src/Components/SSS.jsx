@@ -50,7 +50,7 @@ const SSS = (props) => {
                 <div><input type="text" name="adjacent" onChange={updateAtt}/><span> MM</span></div>
                 <div><label htmlFor="opposite">Enter Length of side C of the triangle in millimetres</label></div>
                 <div><input type="text" name="opposite" onChange={updateAtt}/><span> MM</span></div>
-                <div><input className="btn btn-light buttonPad" type="submit" value="Submit" /><img src={sssImage} /></div>
+                <div><input className="btn btn-outline-primary buttonPad" type="submit" value="Submit" /><img src={sssImage} /></div>
             </form>
             {redirecter.redirect ? (<Redirect push to = "/report"/>) : null}
         </div>

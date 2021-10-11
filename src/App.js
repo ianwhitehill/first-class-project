@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-import './App.css';
 import {
   BrowserRouter,
   Switch,

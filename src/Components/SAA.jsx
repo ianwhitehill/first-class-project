@@ -65,7 +65,7 @@ const SAA = (props) => {
                 <div><input type="text" name="angleB" onChange={updateAtt}/><span> &#176;</span></div>
                 <div><label htmlFor="angleC">Enter the Angle C of the triangle in degrees</label></div>
                 <div><input type="text" name="angleC" onChange={updateAtt}/><span> &#176;</span></div>
-                <div><input className="btn btn-light buttonPad" type="submit" value="Submit" /><img src={saaImage} /></div>
+                <div><input className="btn btn-outline-primary buttonPad" type="submit" value="Submit" /><img src={saaImage} /></div>
             </form>
             {error.foundError ? (<Redirect push to = "/error"/>) : null}
             {redirecter.redirect ? (<Redirect push to = "/report"/>) : null}

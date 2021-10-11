@@ -1,3 +1,45 @@
+# Welcome to React App!
+
+How to run this app 
+
+## Step 1 - Dependencies
+
+You will need:
+
+* [Git](http://git-scm.com/downloads)
+* [node](https://nodejs.org/)
+
+Please install them if you don't have them already.
+
+## Step 2 - Clone the repository:
+
+From the command line, clone the repository:
+
+```sh
+$ git clone https://github.com/ianwhitehill/first-class-project.git
+```
+
+## Step 3 Installs
+
+If you are using npm, run from the root of the repository:
+
+```sh
+npm run install
+```
+
+## Step 4 - Run an app
+
+Once the dependencies are installed, you can run the app:
+
+```sh
+cd first-class-project
+npm start
+```
+
+Your browser will open up to a running app.
+
+#############################################################################################################################################################
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

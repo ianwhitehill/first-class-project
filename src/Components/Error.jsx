@@ -5,7 +5,7 @@ const Error = (props) => {
         <div  className="container">
             <h1>Error:</h1>
             <h3>{props.triangle.errorMessage}</h3>
-			<div><a href="http://localhost:3000/selection" className="btn btn-light buttonPad">Acknowledge</a></div>
+			<div><a href="http://localhost:3000/selection" className="btn btn-outline-danger">Acknowledge</a></div>
         </div>
     );
 } 

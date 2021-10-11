@@ -82,7 +82,7 @@ const SSA = (props) => {
                 <div><input type="text" name="adjacent" onChange={updateAtt}/><span> MM</span></div>
                 <div><label htmlFor="angleC">Enter the Angle C of the triangle in degrees</label></div>
                 <div><input type="text" name="angleC" onChange={updateAtt}/><span> &#176;</span></div>
-                <div><input className="btn btn-light buttonPad" type="submit" value="Submit" /><img src={ssaImage} /></div>
+                <div><input className="btn btn-outline-primary buttonPad" type="submit" value="Submit" /><img src={ssaImage} /></div>
             </form>
             {redirecter.redirect ? (<Redirect push to = "/report"/>) : null}
         </div>
