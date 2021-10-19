@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from '../Img/triangle.png';
+import Image from '../Img/t.PNG';
 
 const Main = () => {
     const [myAtt, setMyAtt] = useState({
@@ -11,35 +11,39 @@ const Main = () => {
         angleB: null,
         classificationS: null,
         classificationA: null,
-        errorMessage: null,
         title: "Input",
         message: "Please enter three parameters of the triangle, at least one of which is a length of the side. Values must be positive and greater then 0."
     })
     const updateAtt = e => {
         setMyAtt({ ...myAtt, [e.target.name]: e.target.value });
     }
+    const refresh = () => {
+        setMyAtt({ ...myAtt, hypotenuse: null,
+            adjacent: null,
+            opposite: null,
+            angleA: null,
+            angleC: null,
+            angleB: null,
+            classificationS: null,
+            classificationA: null,
+            title: "Input",
+            message: "Please enter three parameters of the triangle, at least one of which is a length of the side. Values must be positive and greater then 0." });
+            window.location.reload(false);
+    }
     if (myAtt.hypotenuse !== null || myAtt.angleB !== null || myAtt.angleC !== null || myAtt.angleA !== null || myAtt.opposite !== null || myAtt.adjacent !== null) {
 
-        var a = myAtt.opposite
-        var b = myAtt.hypotenuse
-        var c = myAtt.adjacent
-        var A = myAtt.angleA
-        var B = myAtt.angleB
-        var C = myAtt.angleC
-        var sides = (a !== null) + (b !== null) + (c !== null);
-        var angles = (A !== null) + (B !== null) + (C !== null);
-
+        var sides = (myAtt.opposite !== null) + (myAtt.hypotenuse !== null) + (myAtt.adjacent !== null);
+        var angles = (myAtt.angleA !== null) + (myAtt.angleB !== null) + (myAtt.angleC !== null);
         if (sides == 0) myAtt.message = "Give at least one side length";
-
         else if (sides == 3) {
-            if (a + b <= c || b + c <= a || c + a <= b) {
+            if (myAtt.opposite + myAtt.hypotenuse <= myAtt.adjacent || myAtt.hypotenuse + myAtt.adjacent <= myAtt.opposite || myAtt.adjacent + myAtt.opposite <= myAtt.hypotenuse) {
                 myAtt.message = "No solution";
                 myAtt.title = "Error";
             }
 
-            myAtt.angleA = solveAngle(b, c, a);
-            myAtt.angleB = solveAngle(c, a, b);
-            myAtt.angleC = solveAngle(a, b, c);
+            myAtt.angleA = solveAngle(myAtt.hypotenuse, myAtt.adjacent, myAtt.opposite);
+            myAtt.angleB = solveAngle(myAtt.adjacent, myAtt.opposite, myAtt.hypotenuse);
+            myAtt.angleC = solveAngle(myAtt.opposite, myAtt.hypotenuse, myAtt.adjacent);
             myAtt.classificationA = classifyAngle(myAtt.angleA, myAtt.angleB, myAtt.angleC);
             myAtt.classificationS = classifySide(myAtt.hypotenuse, myAtt.opposite, myAtt.adjacent);
             if (myAtt.hypotenuse > 0 && myAtt.angleB > 0 && myAtt.angleC > 0 && myAtt.angleA > 0 && myAtt.opposite > 0 && myAtt.adjacent > 0) {
@@ -47,41 +51,41 @@ const Main = () => {
                 myAtt.message = ("Side classification: (" + myAtt.classificationS + ") Angle classification: (" + myAtt.classificationA + ") a: (" + myAtt.opposite + ") b: (" + myAtt.hypotenuse + ") c: (" + myAtt.adjacent + ") A: (" + myAtt.angleA + ") B: (" + myAtt.angleB + ") C: (" + myAtt.angleC + ")");
             }
         } else if (angles == 2) {
-            if (A === null) A = 180 - B - C;
-            if (B === null) B = 180 - C - A;
-            if (C === null) C = 180 - A - B;
-            if (A <= 0 || B <= 0 || C <= 0) {
+            if (myAtt.angleA === null) myAtt.angleA = 180 - myAtt.angleB - myAtt.angleC;
+            if (myAtt.angleB === null) myAtt.angleB = 180 - myAtt.angleC - myAtt.angleA;
+            if (myAtt.angleC === null) myAtt.angleC = 180 - myAtt.angleA - myAtt.angleB;
+            if (myAtt.angleA <= 0 || myAtt.angleB <= 0 || myAtt.angleC <= 0) {
                 myAtt.title = "Error";
                 myAtt.message = "No solution";
             }
-            var sinA = Math.sin(degToRad(A));
-            var sinB = Math.sin(degToRad(B));
-            var sinC = Math.sin(degToRad(C));
+            var sinA = Math.sin(degToRad(myAtt.angleA));
+            var sinB = Math.sin(degToRad(myAtt.angleB));
+            var sinC = Math.sin(degToRad(myAtt.angleC));
 
             var ratio;
-            if (a !== null) { ratio = a / sinA }
-            if (b !== null) { ratio = b / sinB }
-            if (c !== null) { ratio = c / sinC }
-            if (a === null) myAtt.opposite = ratio * sinA;
-            if (b === null) myAtt.hypotenuse = ratio * sinB;
-            if (c === null) myAtt.adjacent = ratio * sinC;
+            if (myAtt.opposite !== null) { ratio = myAtt.opposite / sinA }
+            if (myAtt.hypotenuse !== null) { ratio = myAtt.hypotenuse / sinB }
+            if (myAtt.adjacent !== null) { ratio = myAtt.adjacent / sinC }
+            if (myAtt.opposite === null) myAtt.opposite = ratio * sinA;
+            if (myAtt.hypotenuse === null) myAtt.hypotenuse = ratio * sinB;
+            if (myAtt.adjacent === null) myAtt.adjacent = ratio * sinC;
             myAtt.classificationA = classifyAngle(myAtt.angleA, myAtt.angleB, myAtt.angleC);
             myAtt.classificationS = classifySide(myAtt.hypotenuse, myAtt.opposite, myAtt.adjacent);
             if (myAtt.hypotenuse > 0 && myAtt.angleB > 0 && myAtt.angleC > 0 && myAtt.angleA > 0 && myAtt.opposite > 0 && myAtt.adjacent > 0) {
                 myAtt.title = "Solution";
                 myAtt.message = ("Side classification: (" + myAtt.classificationS + ") Angle classification: (" + myAtt.classificationA + ") a: (" + myAtt.opposite + ") b: (" + myAtt.hypotenuse + ") c: (" + myAtt.adjacent + ") A: (" + myAtt.angleA + ") B: (" + myAtt.angleB + ") C: (" + myAtt.angleC + ")");
             }
-        } else if (A !== null && a === null || B !== null && b === null || C !== null && c === null) {
-            if (A !== null && A >= 180 || B !== null && B >= 180 || C !== null && C >= 180) {
+        } else if (myAtt.angleA !== null && myAtt.opposite === null || myAtt.angleB !== null && myAtt.hypotenuse === null || myAtt.angleC !== null && myAtt.adjacent === null) {
+            if (myAtt.angleA !== null && myAtt.angleA >= 180 || myAtt.angleB !== null && myAtt.angleB >= 180 || myAtt.angleC !== null && myAtt.angleC >= 180) {
                 myAtt.title = "Error";
                 myAtt.message = "No solution";
             }
-            if (a === null) myAtt.opposite = solveSide(b, c, A);
-            if (b === null) myAtt.hypotenuse = solveSide(c, a, B);
-            if (c === null) myAtt.adjacent = solveSide(a, b, C);
-            if (A === null) myAtt.angleA = solveAngle(b, c, a);
-            if (B === null) myAtt.angleB = solveAngle(c, a, b);
-            if (C === null) myAtt.angleC = solveAngle(a, b, c);
+            if (myAtt.opposite === null) myAtt.opposite = solveSide(myAtt.hypotenuse, myAtt.adjacent, myAtt.angleA);
+            if (myAtt.hypotenuse === null) myAtt.hypotenuse = solveSide(myAtt.adjacent, myAtt.opposite, myAtt.angleB);
+            if (myAtt.adjacent === null) myAtt.adjacent = solveSide(myAtt.opposite, myAtt.hypotenuse, myAtt.angleC);
+            if (myAtt.angleA === null) myAtt.angleA = solveAngle(myAtt.hypotenuse, myAtt.adjacent, myAtt.opposite);
+            if (myAtt.angleB === null) myAtt.angleB = solveAngle(myAtt.adjacent, myAtt.opposite, myAtt.hypotenuse);
+            if (myAtt.angleC === null) myAtt.angleC = solveAngle(myAtt.opposite, myAtt.hypotenuse, myAtt.adjacent);
             myAtt.classificationA = classifyAngle(myAtt.angleA, myAtt.angleB, myAtt.angleC);
             myAtt.classificationS = classifySide(myAtt.hypotenuse, myAtt.opposite, myAtt.adjacent);
             if (myAtt.hypotenuse > 0 && myAtt.angleB > 0 && myAtt.angleC > 0 && myAtt.angleA > 0 && myAtt.opposite > 0 && myAtt.adjacent > 0) {
@@ -90,12 +94,12 @@ const Main = () => {
             }
         } else {
             var knownSide, knownAngle, partialSide;
-            if (a !== null && A !== null) { knownSide = a; knownAngle = A; }
-            if (b !== null && B !== null) { knownSide = b; knownAngle = B; }
-            if (c !== null && C !== null) { knownSide = c; knownAngle = C; }
-            if (a !== null && A === null) partialSide = a;
-            if (b !== null && B === null) partialSide = b;
-            if (c !== null && C === null) partialSide = c;
+            if (myAtt.opposite !== null && myAtt.angleA !== null) { knownSide = myAtt.opposite; knownAngle = myAtt.angleA; }
+            if (myAtt.hypotenuse !== null && myAtt.angleB !== null) { knownSide = myAtt.hypotenuse; knownAngle = myAtt.angleB; }
+            if (myAtt.adjacent !== null && myAtt.angleC !== null) { knownSide = myAtt.adjacent; knownAngle = myAtt.angleC; }
+            if (myAtt.opposite !== null && myAtt.angleA === null) partialSide = myAtt.opposite;
+            if (myAtt.hypotenuse !== null && myAtt.angleB === null) partialSide = myAtt.hypotenuse;
+            if (myAtt.adjacent !== null && myAtt.angleC === null) partialSide = myAtt.adjacent;
             if (knownAngle >= 180) {
                 myAtt.title = "Error";
                 myAtt.message = "No solution";
@@ -122,12 +126,12 @@ const Main = () => {
                 unknownAngle = [unknownAngle0, unknownAngle1];
                 unknownSide = [unknownSide0, unknownSide1];
             }
-            if (a !== null && A === null) myAtt.angleA = partialAngle;
-            if (b !== null && B === null) myAtt.angleB = partialAngle;
-            if (c !== null && C === null) myAtt.angleC = partialAngle;
-            if (a === null && A === null) { myAtt.opposite = unknownSide; myAtt.angleA = unknownAngle; }
-            if (b === null && B === null) { myAtt.hypotenuse = unknownSide; myAtt.angleB = unknownAngle; }
-            if (c === null && C === null) { myAtt.adjacent = unknownSide; myAtt.angleC = unknownAngle; }
+            if (myAtt.opposite !== null && myAtt.angleA === null) myAtt.angleA = partialAngle;
+            if (myAtt.hypotenuse !== null && myAtt.angleB === null) myAtt.angleB = partialAngle;
+            if (myAtt.adjacent !== null && myAtt.angleC === null) myAtt.angleC = partialAngle;
+            if (myAtt.opposite === null && myAtt.angleA === null) { myAtt.opposite = unknownSide; myAtt.angleA = unknownAngle; }
+            if (myAtt.hypotenuse === null && myAtt.angleB === null) { myAtt.hypotenuse = unknownSide; myAtt.angleB = unknownAngle; }
+            if (myAtt.adjacent === null && myAtt.angleC === null) { myAtt.adjacent = unknownSide; myAtt.angleC = unknownAngle; }
             myAtt.classificationA = classifyAngle(myAtt.angleA, myAtt.angleB, myAtt.angleC);
             myAtt.classificationS = classifySide(myAtt.hypotenuse, myAtt.opposite, myAtt.adjacent);
             if (myAtt.hypotenuse > 0 && myAtt.angleB > 0 && myAtt.angleC > 0 && myAtt.angleA > 0 && myAtt.opposite > 0 && myAtt.adjacent > 0) {
@@ -137,7 +141,17 @@ const Main = () => {
         }
 
         function classifyAngle(x, y, z) {
-            if (x == y && x == z) return "Equilateral";
+            x = Math.floor(x)
+            y = Math.floor(y)
+            z = Math.floor(z)
+            let X = Math.ceil(x)
+            let Y = Math.ceil(y)
+            let Z = Math.ceil(z)
+            if (X == Y && X == Z) return "Equilateral";
+            else if (X == Y) return "Isosceles";
+            else if (Y == Z) return "Isosceles";
+            else if (X == Z) return "Isosceles";
+            else if (x == y && x == z) return "Equilateral";
             else if (x == y) return "Isosceles";
             else if (y == z) return "Isosceles";
             else if (x == z) return "Isosceles";
@@ -145,7 +159,15 @@ const Main = () => {
         }
 
         function classifySide(x, y, z) {
-            if (x == 90 || y == 90 || z == 90) return "Right Triangle";
+            x = Math.floor(x)
+            y = Math.floor(y)
+            z = Math.floor(z)
+            let X = Math.ceil(x)
+            let Y = Math.ceil(y)
+            let Z = Math.ceil(z)
+            if (X == 90 || Y == 90 || Z == 90) return "Right Triangle";
+            else if (x == 90 || y == 90 || z == 90) return "Right Triangle";
+            else if (X > 90 || Y > 90 || Z > 90) return "Obtuse Triangle";
             else if (x > 90 || y > 90 || z > 90) return "Obtuse Triangle";
             else return "Acute Triangle";
         }
@@ -173,7 +195,7 @@ const Main = () => {
             else if (temp <= 1) return radToDeg(Math.sqrt((c * c - (a - b) * (a - b)) / (a * b)));
             else {
                 myAtt.title = "Error";
-                myAtt.message = "No solution: Please enter three parameters of the triangle, at least one of which is a length of the side. Values must be positive and greater then 0.";
+                myAtt.message = "No solution";
             }
         }
     }
@@ -195,6 +217,7 @@ const Main = () => {
                 <div className="col-md-4">
                     <h3>{myAtt.title}</h3>
                     <p>{myAtt.message}</p>
+                    <button  className="btn btn-dark buttonPad" onClick={refresh}>Refresh</button>
                 </div>
             </div>
         </div>
